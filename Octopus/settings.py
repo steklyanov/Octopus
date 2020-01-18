@@ -31,12 +31,22 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'core',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    # necessary includes
+
+    # third party packages
+    'rest_framework',
+    'rest_framework.authtoken',
+    'djoser',
+    #  custom apps
+
+    'actor',
 ]
 
 MIDDLEWARE = [
@@ -99,7 +109,22 @@ AUTH_PASSWORD_VALIDATORS = [
         'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
     },
 ]
+#
+# AUTH_USER_MODEL = 'core.Booker'
+#
+# DJOSER = {
+#     'LOGIN_FIELD': 'email',
+#     'SERIALIZERS': {
+#         'user_create': 'core.serializers.UserCreateSerializer',
+#         'current_user': 'core.serializers.CurrentUserSerializer',
+#     }
+# }
 
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework.authentication.TokenAuthentication',
+    ),
+}
 
 # Internationalization
 # https://docs.djangoproject.com/en/3.0/topics/i18n/
