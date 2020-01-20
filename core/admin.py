@@ -4,8 +4,7 @@ from .models import *
 
 # Register your models here.
 admin.site.register(Actor)
-admin.register(Parameters)
-admin.register(Schedule)
-admin.register(Client)
-admin.register(Job)
-admin.register(Booker)
+admin.site.register(Schedule)
+admin.site.register(Client)
+admin.site.register(Job)
+admin.site.register(Booker)

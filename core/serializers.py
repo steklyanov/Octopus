@@ -31,3 +31,27 @@ class ActorSerializer(serializers.Serializer):
     class Meta:
         model = Actor
         fields = '__all__'
+
+
+class BookerSerializer(serializers.Serializer):
+    class Meta:
+        model = Booker
+        fields = '__all__'
+
+
+class ScheduleSerializer(serializers.Serializer):
+    class Meta:
+        model = Schedule
+        fields = '__all__'
+
+
+class ClientSerializer(serializers.Serializer):
+    class Meta:
+        model = Client
+        fields = '__all__'
+
+
+class JobSerializer(serializers.Serializer):
+    class Meta:
+        model = Job
+        fields = '__all__'
