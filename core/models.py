@@ -7,28 +7,6 @@ from django.contrib.auth.models import AbstractBaseUser, AbstractUser, BaseUserM
 User = get_user_model()
 
 
-class Actor(models.Model):
-    """ Models object"""
-    name = models.CharField(max_length=255)
-    schedule = models.OneToOneField('Schedule', on_delete=models.CASCADE)
-
-    sex = models.BinaryField(null=True)
-    height = models.IntegerField(null=True)
-    bust = models.IntegerField(null=True)
-    waist = models.IntegerField(null=True)
-    hips = models.IntegerField(null=True)
-    shoe = models.IntegerField(null=True)
-    hair = models.IntegerField(null=True)
-    eyes = models.IntegerField(null=True)
-
-
-class Booker(models.Model):
-    # agency = models.OneToOneField('')
-    user = models.ForeignKey(get_user_model(), on_delete=models.CASCADE)
-    email = models.EmailField(max_length=255, unique=True)
-    schedule = models.OneToOneField('Schedule', on_delete=models.CASCADE, blank=True)
-
-
 class Schedule(models.Model):
     jobs = models.ManyToManyField('Job', blank=True)
 
@@ -48,5 +26,41 @@ class Job(models.Model):
 class Agency(models.Model):
     name = models.CharField(max_length=255)
     address = models.CharField(max_length=255)
-    bookers = models.ForeignKey(Booker, on_delete=models.CASCADE)
-    models = models.ForeignKey(Actor, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return self.name
+
+
+class Booker(models.Model):
+    agency = models.ForeignKey(Agency, on_delete=models.CASCADE, default=None)
+    user = models.ForeignKey(get_user_model(), on_delete=models.CASCADE)
+    email = models.EmailField(max_length=255, unique=True)
+    schedule = models.OneToOneField('Schedule', on_delete=models.CASCADE, blank=True)
+
+    def __str__(self):
+        return self.user
+
+
+class Actor(models.Model):
+    """ Models object"""
+    EYE_COLOR = (('AMB', 'Amber'),
+                 ('BLU', 'Blue'),
+                 ('BRO', 'Brown'),
+                 ('GRA', 'Gray'),
+                 ('GRE', 'Green'),
+                 ('HAZ', 'Hazel'))
+
+    name = models.CharField(max_length=255)
+    schedule = models.OneToOneField('Schedule', on_delete=models.CASCADE)
+    agency = models.ForeignKey(Agency, on_delete=models.CASCADE, default=None)
+    sex = models.BinaryField(null=True)
+    height = models.IntegerField(null=True)
+    bust = models.IntegerField(null=True)
+    waist = models.IntegerField(null=True)
+    hips = models.IntegerField(null=True)
+    shoe = models.IntegerField(null=True)
+    hair = models.IntegerField(null=True)
+    eyes = models.CharField(max_length=3, choices=EYE_COLOR, null=True)
+
+    def __str__(self):
+        return self.name

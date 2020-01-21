@@ -27,31 +27,31 @@ from .models import *
 #         fields = '__all__'
 
 
-class ActorSerializer(serializers.Serializer):
+class ActorSerializer(serializers.ModelSerializer):
     class Meta:
         model = Actor
         fields = '__all__'
 
 
-class BookerSerializer(serializers.Serializer):
+class BookerSerializer(serializers.ModelSerializer):
     class Meta:
         model = Booker
         fields = '__all__'
 
 
-class ScheduleSerializer(serializers.Serializer):
+class ScheduleSerializer(serializers.ModelSerializer):
     class Meta:
         model = Schedule
         fields = '__all__'
 
 
-class ClientSerializer(serializers.Serializer):
+class ClientSerializer(serializers.ModelSerializer):
     class Meta:
         model = Client
         fields = '__all__'
 
 
-class JobSerializer(serializers.Serializer):
+class JobSerializer(serializers.ModelSerializer):
     class Meta:
         model = Job
         fields = '__all__'
