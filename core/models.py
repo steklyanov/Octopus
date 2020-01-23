@@ -15,12 +15,18 @@ class Client(models.Model):
     name = models.CharField(max_length=255)
     schedule = models.OneToOneField('Schedule', on_delete=models.CASCADE)
 
+    def __str__(self):
+        return self.name
+
 
 class Job(models.Model):
     models_id = models.ManyToManyField('Actor')
     client = models.ManyToManyField('Client')
     date = models.DateTimeField()
-    price = models.DecimalField(max_digits=6, decimal_places=2)
+    price = models.DecimalField(max_digits=6, decimal_places=2, default=None)
+
+    def __str__(self):
+        return 'Job for {}({})'.format(self.client, self.date)
 
 
 class Agency(models.Model):
@@ -32,13 +38,13 @@ class Agency(models.Model):
 
 
 class Booker(models.Model):
-    agency = models.ForeignKey(Agency, on_delete=models.CASCADE, default=None)
+    agency = models.ForeignKey(Agency, on_delete=models.CASCADE, blank=True, null=True)
     user = models.ForeignKey(get_user_model(), on_delete=models.CASCADE)
-    email = models.EmailField(max_length=255, unique=True)
-    schedule = models.OneToOneField('Schedule', on_delete=models.CASCADE, blank=True)
+    email = models.EmailField(max_length=255, unique=True, default=None, null=True)
+    schedule = models.OneToOneField('Schedule', on_delete=models.CASCADE, blank=True, null=True)
 
     def __str__(self):
-        return self.user
+        return '{}()'.format(self.user)
 
 
 class Actor(models.Model):
@@ -50,17 +56,23 @@ class Actor(models.Model):
                  ('GRE', 'Green'),
                  ('HAZ', 'Hazel'))
 
+    HAIR_COLOR = (('BROWN', 'Brown'),
+                  ('BLACK', 'Black'),
+                  ('AUBUR', 'Auburn'),
+                  ('RED', 'Red'),
+                  ('WHITE', 'Grey or white'))
+
     name = models.CharField(max_length=255)
     schedule = models.OneToOneField('Schedule', on_delete=models.CASCADE)
     agency = models.ForeignKey(Agency, on_delete=models.CASCADE, default=None)
-    sex = models.BinaryField(null=True)
-    height = models.IntegerField(null=True)
-    bust = models.IntegerField(null=True)
-    waist = models.IntegerField(null=True)
-    hips = models.IntegerField(null=True)
-    shoe = models.IntegerField(null=True)
-    hair = models.IntegerField(null=True)
-    eyes = models.CharField(max_length=3, choices=EYE_COLOR, null=True)
+    sex = models.BinaryField(blank=True)
+    height = models.IntegerField(blank=True, default=0)
+    bust = models.IntegerField(blank=True, default=0)
+    waist = models.IntegerField(blank=True, default=0)
+    hips = models.IntegerField(blank=True, default=0)
+    shoe = models.IntegerField(blank=True, default=0)
+    hair = models.CharField(max_length=5, choices=HAIR_COLOR, blank=True)
+    eyes = models.CharField(max_length=3, choices=EYE_COLOR, blank=True)
 
     def __str__(self):
         return self.name
