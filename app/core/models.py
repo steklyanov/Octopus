@@ -44,7 +44,7 @@ class Booker(models.Model):
     schedule = models.OneToOneField('Schedule', on_delete=models.CASCADE, blank=True, null=True)
 
     def __str__(self):
-        return '{}()'.format(self.user)
+        return '{}({})'.format(self.user, self.agency if self.agency else '')
 
 
 class Actor(models.Model):
@@ -63,14 +63,14 @@ class Actor(models.Model):
                   ('WHITE', 'Grey or white'))
 
     name = models.CharField(max_length=255)
-    schedule = models.OneToOneField('Schedule', on_delete=models.CASCADE)
-    agency = models.ForeignKey(Agency, on_delete=models.CASCADE, default=None)
-    sex = models.BinaryField(blank=True)
-    height = models.IntegerField(blank=True, default=0)
-    bust = models.IntegerField(blank=True, default=0)
-    waist = models.IntegerField(blank=True, default=0)
-    hips = models.IntegerField(blank=True, default=0)
-    shoe = models.IntegerField(blank=True, default=0)
+    schedule = models.OneToOneField('Schedule', on_delete=models.CASCADE, blank=True, null=True)
+    agency = models.ForeignKey(Agency, on_delete=models.CASCADE, blank=True, null=True)
+    sex = models.IntegerField(blank=True, null=True)
+    height = models.IntegerField(blank=True, null=True)
+    bust = models.IntegerField(blank=True, null=True)
+    waist = models.IntegerField(blank=True, null=True)
+    hips = models.IntegerField(blank=True, null=True)
+    shoe = models.IntegerField(blank=True, null=True)
     hair = models.CharField(max_length=5, choices=HAIR_COLOR, blank=True)
     eyes = models.CharField(max_length=3, choices=EYE_COLOR, blank=True)
 
