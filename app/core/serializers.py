@@ -3,6 +3,12 @@ from rest_framework import serializers
 from .models import *
 
 
+class AgencySerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Agency
+        fields = '__all__'
+
+
 class ActorSerializer(serializers.ModelSerializer):
     class Meta:
         model = Actor
