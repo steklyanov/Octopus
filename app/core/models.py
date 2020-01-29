@@ -46,24 +46,6 @@ class Booker(models.Model):
     def __str__(self):
         return '{}({})'.format(self.user, self.agency if self.agency else '')
 
-    # class Meta:
-    #     permissions = (
-    #         ("core.can_add_actor", "Can add actor"),
-    #         ("core.can_delete_actor", "Can delete actor"),
-    #         ("core.can_view_actor", "can view actor"),
-    #         ("core.can_change_actor", "can view actor"),
-    #
-    #         ("can_add_client", "Can add client"),
-    #         ("can_delete_client", "Can delete client"),
-    #         ("can_view_client", "can view client"),
-    #         ("can_change_client", "can change client"),
-    #
-    #         ("can_add_job", "Can add job"),
-    #         ("can_delete_job", "Can delete job"),
-    #         ("can_view_job", "can view job"),
-    #         ("can_change_job", "can change job"),
-    #     )
-
 
 class Actor(models.Model):
     """ Models object"""
@@ -94,8 +76,3 @@ class Actor(models.Model):
 
     def __str__(self):
         return self.name
-
-
-# class AgencyBooker(models.Model):
-#     booker = models.ForeignKey(Booker, on_delete=models.CASCADE)
-#     agency = models.ForeignKey(Agency, on_delete=models.CASCADE)

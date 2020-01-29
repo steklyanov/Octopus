@@ -4,16 +4,12 @@ from rest_framework.permissions import IsAuthenticated, IsAdminUser
 from rest_framework.views import APIView
 from core.models import Actor, Client, Job, Booker, Agency
 from core.serializers import AgencySerializer, BookerSerializer
-from rest_framework import viewsets, mixins
-from rest_framework.viewsets import GenericViewSet
-from django.core import serializers
 from rest_framework import generics
 
 
 # class DashboardView(generics.RetrieveUpdateDestroyAPIView):
 class DashboardView(generics.ListAPIView):
-    # authentication_classes = (TokenAuthentication, )
-    # permission_classes = (IsAuthenticated, )   #  , IsAdminUser
+    """ Show all agencies """
     serializer_class = BookerSerializer
 
     def get_queryset(self):
@@ -22,13 +18,40 @@ class DashboardView(generics.ListAPIView):
         return Booker.objects.all()
 
 
-class AgencyEditView(generics.ListAPIView):
-    # queryset = Agency.objects.all()
+class BookerListCreateView(generics.ListCreateAPIView):
+    """ Create or show all bookers of the selected agency """
+    serializer_class = BookerSerializer
+
+    def get_queryset(self, *args, **kwargs):
+        id = self.kwargs['pk']
+        booker = Booker.objects.filter(agency_id=id)
+
+        return booker
+
+
+class BookerEditView(generics.RetrieveUpdateDestroyAPIView):
+    """Edit selected agency data"""
+    serializer_class = BookerSerializer
+
+    def get_queryset(self, *args, **kwargs):
+        print(*args)
+        print(*kwargs)
+        id = self.kwargs['booker_id']
+        booker = Booker.objects.filter(id=id)
+
+        return booker
+
+
+class BookerCreateView(generics.CreateAPIView):
+    pass
+
+
+class AgencyEditView(generics.RetrieveUpdateDestroyAPIView):
+    """Edit selected agency data"""
     serializer_class = AgencySerializer
 
     def get_queryset(self, *args, **kwargs):
-        """" Return a default options """
         id = self.kwargs['pk']
-        object = Agency.objects.filter(id=id)
+        agency = Agency.objects.filter(id=id)
 
-        return object
+        return agency
