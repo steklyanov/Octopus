@@ -94,3 +94,8 @@ class Actor(models.Model):
 
     def __str__(self):
         return self.name
+
+
+# class AgencyBooker(models.Model):
+#     booker = models.ForeignKey(Booker, on_delete=models.CASCADE)
+#     agency = models.ForeignKey(Agency, on_delete=models.CASCADE)

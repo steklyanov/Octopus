@@ -37,3 +37,9 @@ class JobSerializer(serializers.ModelSerializer):
     class Meta:
         model = Job
         fields = '__all__'
+
+
+class NestedFieldsSerializer(serializers.ModelSerializer):
+    """ Serializer for agency and booker """
+    booker = BookerSerializer(many=True)
+    agency = AgencySerializer()
