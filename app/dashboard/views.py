@@ -10,12 +10,10 @@ from rest_framework import generics
 # class DashboardView(generics.RetrieveUpdateDestroyAPIView):
 class DashboardView(generics.ListAPIView):
     """ Show all agencies """
-    serializer_class = BookerSerializer
+    serializer_class = AgencySerializer
 
     def get_queryset(self):
-        booker = Booker.objects.get(user_id=self.request.user.id)
-        print(booker.agency_id)
-        return Booker.objects.all()
+        return Agency.objects.all()
 
 
 class BookerListCreateView(generics.ListCreateAPIView):
@@ -40,10 +38,6 @@ class BookerEditView(generics.RetrieveUpdateDestroyAPIView):
         booker = Booker.objects.filter(id=id)
 
         return booker
-
-
-class BookerCreateView(generics.CreateAPIView):
-    pass
 
 
 class AgencyEditView(generics.RetrieveUpdateDestroyAPIView):
